@@ -133,7 +133,7 @@ $script:Tokens = @{}
 
 function Connect-Services($Config) {
     $module = Get-Module -ListAvailable Az.Accounts | Sort-Object Version -Descending | Select-Object -First 1
-    if (-not $module) { throw 'The module Az.Accounts is required: Install-Module Az.Accounts -Scope AllUsers' }
+    if (-not $module) { throw 'The module Az.Accounts is required: Install-Module Az.Accounts -Scope AllUsers -Force' }
     Import-Module $module -ErrorAction Stop -WarningAction SilentlyContinue
     # The broker sign-in window (WAM) is not reliable in PowerShell 7 consoles: browser sign-in instead.
     try { Update-AzConfig -EnableLoginByWam $false -Scope Process -WarningAction SilentlyContinue | Out-Null } catch { }
