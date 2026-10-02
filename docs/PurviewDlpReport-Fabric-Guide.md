@@ -8,6 +8,17 @@ updated: 2026-10-02
 
 # Purview DLP Report for Microsoft Fabric — Administrator guide
 
+> [!IMPORTANT]
+> Files downloaded from the Internet may be blocked by Windows and fail to run. Before using this project, unblock every file in the downloaded folder:
+>
+> ```powershell
+> Get-ChildItem "C:\Chemin\Du\Dossier" -Recurse -File -Force | Unblock-File
+> ```
+>
+> Replace the example path with the folder where you downloaded or extracted this project.
+>
+> If an `Install-Module` command reports that the module already exists, add `-Force`. If the installed version still conflicts, close PowerShell, run `Uninstall-Module <ModuleName> -AllVersions` if appropriate, then install the required version again.
+
 > An **optional companion** of Purview DLP Report. It publishes the same rows — **one row per Message ID** — to Microsoft Fabric with the profile of each sender, and gives every business line, manager and employee a Power BI report and an agent in Microsoft Teams that show **only the messages that concern them**.
 
 ```cards
@@ -267,7 +278,7 @@ Users of the connection | On the connection: **Manage users** > the publication 
 ### 5.7 Server
 
 ```powershell
-Install-Module Az.Accounts -Scope AllUsers            # sign-in and tokens
+Install-Module Az.Accounts -Scope AllUsers -Force     # sign-in and tokens
 git clone https://github.com/Nico77600/PurviewDlpReport-Fabric.git D:\Tools\PurviewDlpReport-Fabric
 # or: the zip of the latest release, unblocked (Unblock-File) and extracted to the same folder
 ```
