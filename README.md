@@ -6,6 +6,15 @@
   </picture>
 </p>
 
+<p align="center">
+  <a href="#how-it-works"><b>How it works</b></a> &nbsp;&middot;&nbsp;
+  <a href="#questions-in-microsoft-teams"><b>Agent in Teams</b></a> &nbsp;&middot;&nbsp;
+  <a href="#screenshots"><b>Screenshots</b></a> &nbsp;&middot;&nbsp;
+  <a href="#requirements"><b>Requirements</b></a> &nbsp;&middot;&nbsp;
+  <a href="#quick-start"><b>Quick start</b></a> &nbsp;&middot;&nbsp;
+  <a href="docs/PurviewDlpReport-Fabric-Guide.md"><b>Administrator guide</b></a>
+</p>
+
 > [!IMPORTANT]
 > Files downloaded from the Internet may be blocked by Windows and fail to run. Before using this project, unblock every file in the downloaded folder:
 >
@@ -15,16 +24,7 @@
 >
 > Replace the example path with the folder where you downloaded or extracted this project.
 >
-> If an `Install-Module` command reports that the module already exists, add `-Force`. If the installed version still conflicts, close PowerShell, run `Uninstall-Module <ModuleName> -AllVersions` if appropriate, then install the required version again.
-
-<p align="center">
-  <a href="#how-it-works"><b>How it works</b></a> &nbsp;&middot;&nbsp;
-  <a href="#questions-in-microsoft-teams"><b>Agent in Teams</b></a> &nbsp;&middot;&nbsp;
-  <a href="#screenshots"><b>Screenshots</b></a> &nbsp;&middot;&nbsp;
-  <a href="#requirements"><b>Requirements</b></a> &nbsp;&middot;&nbsp;
-  <a href="#quick-start"><b>Quick start</b></a> &nbsp;&middot;&nbsp;
-  <a href="docs/PurviewDlpReport-Fabric-Guide.md"><b>Administrator guide</b></a>
-</p>
+> The `Install-Module` commands in this documentation use `-Force`, so they also update or reinstall a module that is already installed. If an older version still conflicts, close every PowerShell window, open a new one (as administrator for `-Scope AllUsers`), run `Uninstall-Module <ModuleName> -AllVersions -Force`, then run the `Install-Module` command again.
 
 ## Why
 
