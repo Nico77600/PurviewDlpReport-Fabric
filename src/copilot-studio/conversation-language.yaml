@@ -1,0 +1,49 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnActivity
+  id: main
+  type: Message
+  actions:
+    - kind: SetVariable
+      id: setVariable_enWords
+      variable: init:Topic.EnglishWords
+      value: |-
+        =CountRows(MatchAll(System.Activity.Text, "\b(the|which|what|who|whose|how|show|list|give|tell|are|is|was|were|have|has|do|does|most|many|much|per|and|with|for|from|to|in|of|by|over|above|than|more|sent|sending|send|recipients?|senders?|business|lines?|days?|week|today|my|team|members|hello|hi|thanks|please|can|you)\b", MatchOptions.IgnoreCase))
+
+    - kind: SetVariable
+      id: setVariable_frWords
+      variable: init:Topic.FrenchWords
+      value: |-
+        =CountRows(MatchAll(System.Activity.Text, "\b(le|la|les|des|du|de|un|une|quels?|quelles?|qui|quoi|combien|comment|est|sont|ont|plus|par|pour|et|avec|dans|sur|au|aux|mes|mon|ma|expéditeurs?|destinataires?|jours?|semaine|équipes?|collaborateurs?|bonjour|merci|peux|tu|vous|montre|donne)\b", MatchOptions.IgnoreCase))
+
+    - kind: ConditionGroup
+      id: conditionGroup_language
+      conditions:
+        - id: condition_english
+          condition: =Topic.EnglishWords > Topic.FrenchWords
+          actions:
+            - kind: SetVariable
+              id: setVariable_langEnglish
+              variable: System.User.Language
+              value:
+                kind: OptionDataValue
+                type:
+                  kind: SystemOptionSet
+                  name: Locale
+                value: English
+
+        - id: condition_french
+          condition: =Topic.FrenchWords > Topic.EnglishWords
+          actions:
+            - kind: SetVariable
+              id: setVariable_langFrench
+              variable: System.User.Language
+              value:
+                kind: OptionDataValue
+                type:
+                  kind: SystemOptionSet
+                  name: Locale
+                value: French
+
+inputType: {}
+outputType: {}
