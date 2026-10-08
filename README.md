@@ -12,7 +12,8 @@
   <a href="#screenshots"><b>Screenshots</b></a> &nbsp;&middot;&nbsp;
   <a href="#requirements"><b>Requirements</b></a> &nbsp;&middot;&nbsp;
   <a href="#quick-start"><b>Quick start</b></a> &nbsp;&middot;&nbsp;
-  <a href="package/docs/PurviewDlpReport-Fabric-Guide.md"><b>Administrator guide</b></a>
+  <a href="package/docs/PurviewDlpReport-Fabric-UserGuide.md"><b>User guide</b></a> &nbsp;&middot;&nbsp;
+  <a href="package/docs/PurviewDlpReport-Fabric-Guide.md"><b>Developer guide</b></a>
 </p>
 
 > [!IMPORTANT]
@@ -128,14 +129,16 @@ notepad .\config\PurviewDlpReport-Fabric.config.psd1     # tenant, application, 
 .\Publish-DlpReportToFabric.ps1 -Mode AgentInstructions  # texts to paste into the data agent and the Copilot Studio agent
 ```
 
-Then, once in the Power BI service: the groups in the two roles and the report shared with them (guide, chapter 7); every day, a scheduled task after the collection of Purview DLP Report (chapter 8). The `package` folder of the repository holds exactly the files needed to run, with the guide; the zip of each [release](https://github.com/Nico77600/PurviewDlpReport-Fabric/releases) contains the same run-time files.
+Then, once in the Power BI service: the groups in the two roles and the report shared with them (guide, chapter 7); every day, a scheduled task after the collection of Purview DLP Report (chapter 8). The `package` folder of the repository holds exactly the files needed to run, with both guides; the zip of each [release](https://github.com/Nico77600/PurviewDlpReport-Fabric/releases) contains the same run-time files.
 
 ## Documentation
 
-The **administrator guide** is a step-by-step procedure: how it works, prerequisites and how to set them up (capacity, tenant settings, workspace and warehouse, groups, the two applications, cloud connection), configuration, deployment, daily publication, the report, the Fabric data agent, the Copilot Studio agent in Teams, tests with reference results, security model, troubleshooting and licensing:
+| Guide | Content |
+|---|---|
+| **[User guide](package/docs/PurviewDlpReport-Fabric-UserGuide.md)** | For the person who deploys the companion and runs it day to day: what to have ready, the one-time setup in order (capacity, tenant settings, workspace and warehouse, groups, the two applications, cloud connection, server, configuration, first publication and deployment, roles and sharing), the daily publication and how to check it, reading the report, the questions in Teams, keeping the audiences right, and the situations that come back. |
+| **[Developer guide](package/docs/PurviewDlpReport-Fabric-Guide.md)** | Everything else: how it works and the four tables, every prerequisite and how to set it up, every configuration key, the deployment, the report, the Fabric data agent and the Copilot Studio agent in Teams, the tests with their reference results, the internals, the security model, troubleshooting, the design choices, the options without Fabric and licensing. |
 
-- [package/docs/PurviewDlpReport-Fabric-Guide.md](package/docs/PurviewDlpReport-Fabric-Guide.md)
-- `package/docs/PurviewDlpReport-Fabric-Guide.html` — the same guide as a single HTML file, with a light and a dark theme (download it and open it locally)
+Both guides also exist as a single HTML file with a light and a dark theme (`package/docs/PurviewDlpReport-Fabric-UserGuide.html`, `package/docs/PurviewDlpReport-Fabric-Guide.html`): download them and open them locally, or use the copies in the release zip.
 
 ## Tests
 
