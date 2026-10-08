@@ -1,7 +1,7 @@
 #Requires -Version 7.4
 <#
 .SYNOPSIS
-    Renders the graphics of the GitHub README (docs\images\readme-*.png) from the administrator guide.
+    Renders the graphics of the GitHub README (package\docs\images\readme-*.png) from the administrator guide.
 
 .DESCRIPTION
     GitHub renders Markdown only: the custom blocks of the guide (cards, flow) and its theme are lost.
@@ -19,7 +19,7 @@
     report and the real agent in Teams on a demonstration tenant with fictitious personas.
 
 .PARAMETER OutputFolder
-    Default: docs\images next to the tools folder.
+    Default: package\docs\images next to the tools folder.
 
 .PARAMETER KeepWork
     Keeps the work folder (HTML pages of the graphics) and shows its path.
@@ -40,7 +40,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
-if (-not $OutputFolder) { $OutputFolder = Join-Path $root 'docs\images' }
+if (-not $OutputFolder) { $OutputFolder = Join-Path $root 'package\docs\images' }
 $edge = @("${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe", "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $edge) { throw 'Microsoft Edge not found: it takes the screenshots (headless mode).' }
 $work = Join-Path ([IO.Path]::GetTempPath()) ('pdrf-doc-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
@@ -58,9 +58,9 @@ function ConvertTo-ReadmeInline([string]$Text) {
 
 function Get-ReadmeAssets {
     $builder = Join-Path $root 'tools\Build-Documentation.ps1'
-    $guideHtml = Join-Path $root "docs\$guideName.html"
-    $guideMd = Join-Path $root "docs\$guideName.md"
-    if (-not (Test-Path $guideHtml)) { throw "docs\$guideName.html not found: run tools\Build-Documentation.ps1 first (it holds the CSS of the graphics)." }
+    $guideHtml = Join-Path $root "package\docs\$guideName.html"
+    $guideMd = Join-Path $root "package\docs\$guideName.md"
+    if (-not (Test-Path $guideHtml)) { throw "package\docs\$guideName.html not found: run tools\Build-Documentation.ps1 first (it holds the CSS of the graphics)." }
     # Icons: the $Icons table of the documentation builder, read without running the builder.
     $ast = [Management.Automation.Language.Parser]::ParseFile($builder, [ref]$null, [ref]$null)
     $assign = $ast.Find({ param($n) $n -is [Management.Automation.Language.AssignmentStatementAst] -and $n.Left.Extent.Text -eq '$Icons' }, $true)
@@ -81,7 +81,7 @@ function Get-ReadmeAssets {
 function Get-GuideBlock([string]$Kind, [string]$FirstTitle) {
     # A cards or flow block of the guide, found by the title of its first item.
     $block = $assets.Blocks | Where-Object { $_.Kind -eq $Kind -and $_.First -eq $FirstTitle } | Select-Object -First 1
-    if (-not $block) { throw "Guide block not found: $Kind starting with '$FirstTitle' (docs\$guideName.md)." }
+    if (-not $block) { throw "Guide block not found: $Kind starting with '$FirstTitle' (package\docs\$guideName.md)." }
     return $block.Lines
 }
 

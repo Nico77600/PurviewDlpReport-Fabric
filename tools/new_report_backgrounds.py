@@ -3,13 +3,13 @@
 # cards with soft shadows, crimson accent, gradient tiles with icons and rings, header band) and writes the
 # position of every visual slot to layout.json. The visuals of the report are transparent and placed in the slots.
 #
-#   python tools/new_report_backgrounds.py      -> src/report/bg-*.png (2560 x 1440) + src/report/layout.json
+#   python tools/new_report_backgrounds.py      -> package/src/report/bg-*.png (2560 x 1440) + package/src/report/layout.json
 #
 # Needs: pip install playwright ; Microsoft Edge installed (used as the browser, nothing is downloaded).
 import json, os
 from playwright.sync_api import sync_playwright
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "report")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "package", "src", "report")
 C = dict(bg="#f7f4ef", surface="#ffffff", border="#dedede", text="#242424", muted="#5c5c5c", soft="#6f6f6f",
          accent="#b11f4b", accent2="#9a1a41", asoft="rgba(177,31,75,0.08)", hi="rgba(177,31,75,0.12)")
 BANDS = [("26-30 recipients", "#e3879f"), ("31-40 recipients", "#c9416a"), ("41-60 recipients", "#a51d45"), ("61+ recipients", "#6e1230")]

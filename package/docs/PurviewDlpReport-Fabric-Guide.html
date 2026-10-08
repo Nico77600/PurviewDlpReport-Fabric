@@ -500,8 +500,10 @@ $cert.Thumbprint                                                          # for 
 </div>
 <h3 id="server">5.7 Server</h3>
 <div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy"><svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span>Copy</span></button></div><pre><code>Install-Module Az.Accounts -Scope AllUsers -Force     # sign-in and tokens
-git clone https://github.com/Nico77600/PurviewDlpReport-Fabric.git D:\Tools\PurviewDlpReport-Fabric
-# or: the zip of the latest release, extracted to the same folder and unblocked (note at the top of this guide)
+# the zip of the latest release, extracted to D:\Tools\PurviewDlpReport-Fabric and unblocked (note at the top of this guide)
+# or: the package folder of the repository, copied to the same folder
+git clone https://github.com/Nico77600/PurviewDlpReport-Fabric.git $env:TEMP\PurviewDlpReport-Fabric
+Copy-Item $env:TEMP\PurviewDlpReport-Fabric\package D:\Tools\PurviewDlpReport-Fabric -Recurse
 </code></pre></div>
 <p>The companion runs next to Purview DLP Report, with the account of its scheduled task. Check that Purview DLP Report collects every day (<code>.\Invoke-PurviewDlpReport.ps1 -Mode Status</code>): the companion publishes what its database holds.</p>
 </div></section><section class="section" id="configuration"><div class="section-head"><div class="section-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><div><div class="section-eyebrow">Chapter 6</div><h2>Configuration</h2></div></div><div class="section-body">
@@ -1074,27 +1076,27 @@ WHERE BusinessLine IS NULL OR ManagerName IS NULL;
 <td><strong>The only script to run</strong> — modes <code>Publish</code>, <code>Deploy</code>, <code>Status</code>, <code>AgentInstructions</code></td>
 </tr>
 <tr>
-<td><code>config\PurviewDlpReport-Fabric.config.psd1</code></td>
+<td><code>package\config\PurviewDlpReport-Fabric.config.psd1</code></td>
 <td>All the settings</td>
 </tr>
 <tr>
-<td><code>src\PurviewDlpReport.Fabric.cs</code></td>
+<td><code>package\src\PurviewDlpReport.Fabric.cs</code></td>
 <td>CSV reader of Purview DLP Report (one row per Message ID) and batch reader for the bulk load</td>
 </tr>
 <tr>
-<td><code>src\ReportDefinition.ps1</code></td>
+<td><code>package\src\ReportDefinition.ps1</code></td>
 <td>The Power BI report as code (PBIR format): pages, visuals, theme and backgrounds</td>
 </tr>
 <tr>
-<td><code>src\report\</code></td>
+<td><code>package\src\report\</code></td>
 <td>Page backgrounds, position of the visuals (<code>layout.json</code>) and theme of the report</td>
 </tr>
 <tr>
-<td><code>src\AiDefinition.ps1</code></td>
+<td><code>package\src\AiDefinition.ps1</code></td>
 <td>Preparation of the model for AI, the data agent and its answer format, the texts of the Copilot Studio agent</td>
 </tr>
 <tr>
-<td><code>src\copilot-studio\conversation-language.yaml</code></td>
+<td><code>package\src\copilot-studio\conversation-language.yaml</code></td>
 <td>Topic of the Copilot Studio agent that sets the language of the conversation</td>
 </tr>
 <tr>
@@ -1102,7 +1104,7 @@ WHERE BusinessLine IS NULL OR ManagerName IS NULL;
 <td>Offline Pester tests (chapter 13)</td>
 </tr>
 <tr>
-<td><code>docs\</code></td>
+<td><code>package\docs\</code></td>
 <td>This guide (Markdown and HTML) and its images</td>
 </tr>
 <tr>
@@ -1424,7 +1426,7 @@ RETURN
 <p>Size the capacity with the Fabric Capacity Metrics app during a pilot. Direct Lake guardrails (rows per table) are far above the volume of this report on any SKU.</p>
 </div>
 </div></section>
-<footer>Purview DLP Report for Microsoft Fabric 1.3.0 · Nicolas Fabert · generated 2026-10-02 16:16 from PurviewDlpReport-Guide.md</footer></main>
+<footer>Purview DLP Report for Microsoft Fabric 1.3.0 · Nicolas Fabert · generated 2026-10-08 08:53 from PurviewDlpReport-Guide.md</footer></main>
 <button type="button" id="to-top" title="Back to top"><svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg></button>
 <dialog id="zoom"><img alt=""></dialog>
 <script>

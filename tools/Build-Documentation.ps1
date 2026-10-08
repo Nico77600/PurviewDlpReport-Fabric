@@ -1,7 +1,7 @@
 #Requires -Version 7.4
 <#
 .SYNOPSIS
-    Builds docs\PurviewDlpReport-Fabric-Guide.html from docs\PurviewDlpReport-Fabric-Guide.md.
+    Builds package\docs\PurviewDlpReport-Fabric-Guide.html from package\docs\PurviewDlpReport-Fabric-Guide.md.
     Same builder as Purview DLP Report (tools\Build-Documentation.ps1), only the default paths differ.
 
 .DESCRIPTION
@@ -34,8 +34,8 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Source = (Join-Path $PSScriptRoot '..\docs\PurviewDlpReport-Fabric-Guide.md'),
-    [string]$Destination = (Join-Path $PSScriptRoot '..\docs\PurviewDlpReport-Fabric-Guide.html')
+    [string]$Source = (Join-Path $PSScriptRoot '..\package\docs\PurviewDlpReport-Fabric-Guide.md'),
+    [string]$Destination = (Join-Path $PSScriptRoot '..\package\docs\PurviewDlpReport-Fabric-Guide.html')
 )
 $ErrorActionPreference = 'Stop'
 $Source = (Resolve-Path $Source).Path

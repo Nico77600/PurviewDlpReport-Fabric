@@ -279,8 +279,10 @@ Users of the connection | On the connection: **Manage users** > the publication 
 
 ```powershell
 Install-Module Az.Accounts -Scope AllUsers -Force     # sign-in and tokens
-git clone https://github.com/Nico77600/PurviewDlpReport-Fabric.git D:\Tools\PurviewDlpReport-Fabric
-# or: the zip of the latest release, extracted to the same folder and unblocked (note at the top of this guide)
+# the zip of the latest release, extracted to D:\Tools\PurviewDlpReport-Fabric and unblocked (note at the top of this guide)
+# or: the package folder of the repository, copied to the same folder
+git clone https://github.com/Nico77600/PurviewDlpReport-Fabric.git $env:TEMP\PurviewDlpReport-Fabric
+Copy-Item $env:TEMP\PurviewDlpReport-Fabric\package D:\Tools\PurviewDlpReport-Fabric -Recurse
 ```
 
 The companion runs next to Purview DLP Report, with the account of its scheduled task. Check that Purview DLP Report collects every day (`.\Invoke-PurviewDlpReport.ps1 -Mode Status`): the companion publishes what its database holds.
@@ -606,14 +608,14 @@ Every figure is the one of the report for the same person: the agent applies the
 | Path | Content |
 |---|---|
 | `Publish-DlpReportToFabric.ps1` | **The only script to run** — modes `Publish`, `Deploy`, `Status`, `AgentInstructions` |
-| `config\PurviewDlpReport-Fabric.config.psd1` | All the settings |
-| `src\PurviewDlpReport.Fabric.cs` | CSV reader of Purview DLP Report (one row per Message ID) and batch reader for the bulk load |
-| `src\ReportDefinition.ps1` | The Power BI report as code (PBIR format): pages, visuals, theme and backgrounds |
-| `src\report\` | Page backgrounds, position of the visuals (`layout.json`) and theme of the report |
-| `src\AiDefinition.ps1` | Preparation of the model for AI, the data agent and its answer format, the texts of the Copilot Studio agent |
-| `src\copilot-studio\conversation-language.yaml` | Topic of the Copilot Studio agent that sets the language of the conversation |
+| `package\config\PurviewDlpReport-Fabric.config.psd1` | All the settings |
+| `package\src\PurviewDlpReport.Fabric.cs` | CSV reader of Purview DLP Report (one row per Message ID) and batch reader for the bulk load |
+| `package\src\ReportDefinition.ps1` | The Power BI report as code (PBIR format): pages, visuals, theme and backgrounds |
+| `package\src\report\` | Page backgrounds, position of the visuals (`layout.json`) and theme of the report |
+| `package\src\AiDefinition.ps1` | Preparation of the model for AI, the data agent and its answer format, the texts of the Copilot Studio agent |
+| `package\src\copilot-studio\conversation-language.yaml` | Topic of the Copilot Studio agent that sets the language of the conversation |
 | `tests\` | Offline Pester tests (chapter 13) |
-| `docs\` | This guide (Markdown and HTML) and its images |
+| `package\docs\` | This guide (Markdown and HTML) and its images |
 | `tools\Build-Documentation.ps1` | Builds the HTML guide |
 | `tools\New-DocumentationImages.ps1` | Renders the graphics of the README from this guide |
 | `tools\new_report_backgrounds.py` | Draws the page backgrounds and writes `layout.json` (only to change the design) |

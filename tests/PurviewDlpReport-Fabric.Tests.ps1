@@ -9,18 +9,19 @@
 
 BeforeAll {
     $script:RepoRoot = Split-Path $PSScriptRoot -Parent
-    $script:MainScript = Join-Path $RepoRoot 'Publish-DlpReportToFabric.ps1'
+    $script:PackageRoot = Join-Path $script:RepoRoot 'package'
+    $script:MainScript = Join-Path $script:PackageRoot 'Publish-DlpReportToFabric.ps1'
     $ast = [Management.Automation.Language.Parser]::ParseFile($MainScript, [ref]$null, [ref]$null)
     $definitions = @($ast.EndBlock.Statements | Where-Object {
             $_ -is [Management.Automation.Language.FunctionDefinitionAst] -or
             ($_ -is [Management.Automation.Language.AssignmentStatementAst] -and $_.Left.Extent.Text -like '$script:*')
         })
     . ([scriptblock]::Create(($definitions | ForEach-Object { $_.Extent.Text }) -join [Environment]::NewLine))
-    $script:Root = $RepoRoot
-    . (Join-Path $RepoRoot 'src\ReportDefinition.ps1')
-    . (Join-Path $RepoRoot 'src\AiDefinition.ps1')
+    $script:Root = $PackageRoot
+    . (Join-Path $PackageRoot 'src\ReportDefinition.ps1')
+    . (Join-Path $PackageRoot 'src\AiDefinition.ps1')
     if (-not ('PurviewDlpReportFabric.Normalizer' -as [type])) {
-        Add-Type -Path (Join-Path $RepoRoot 'src\PurviewDlpReport.Fabric.cs') -ReferencedAssemblies @(
+        Add-Type -Path (Join-Path $PackageRoot 'src\PurviewDlpReport.Fabric.cs') -ReferencedAssemblies @(
             'System.Runtime', 'System.IO', 'System.Collections', 'System.Collections.NonGeneric', 'System.Runtime.Extensions', 'System.Text.Encoding.Extensions',
             'System.Data.Common', 'System.ComponentModel.TypeConverter', 'System.ComponentModel.Primitives', 'System.Xml.ReaderWriter')
     }
@@ -43,7 +44,7 @@ BeforeAll {
     }
     function New-TestConfig([hashtable]$Values) {
         # The configuration template with test values (fictitious GUIDs).
-        $text = [IO.File]::ReadAllText((Join-Path $script:RepoRoot 'config\PurviewDlpReport-Fabric.config.psd1'))
+        $text = [IO.File]::ReadAllText((Join-Path $script:PackageRoot 'config\PurviewDlpReport-Fabric.config.psd1'))
         $defaults = [ordered]@{
             TenantId = '11111111-1111-1111-1111-111111111111'; ApplicationId = '22222222-2222-2222-2222-222222222222'
             CertificateThumbprint = 'ABCDEF0123456789ABCDEF0123456789ABCDEF01'; WorkspaceId = '33333333-3333-3333-3333-333333333333'
@@ -75,12 +76,12 @@ Describe 'Repository' {
         $version = $script:Version
         $version | Should -Match '^\d+\.\d+\.\d+$'
         (Get-Content $MainScript -Raw) | Should -Match "Version : $([regex]::Escape($version))"
-        (Get-Content (Join-Path $RepoRoot 'docs\PurviewDlpReport-Fabric-Guide.md') -Raw) | Should -Match "(?m)^version: $([regex]::Escape($version))\r?$"
+        (Get-Content (Join-Path $PackageRoot 'docs\PurviewDlpReport-Fabric-Guide.md') -Raw) | Should -Match "(?m)^version: $([regex]::Escape($version))\r?$"
         (Get-Content (Join-Path $RepoRoot 'CHANGELOG.md') -Raw) | Should -Match "(?m)^## $([regex]::Escape($version)) "
     }
 
     It 'ships a configuration template without tenant values' {
-        $c = Import-PowerShellDataFile (Join-Path $RepoRoot 'config\PurviewDlpReport-Fabric.config.psd1')
+        $c = Import-PowerShellDataFile (Join-Path $PackageRoot 'config\PurviewDlpReport-Fabric.config.psd1')
         foreach ($section in 'Source', 'Authentication', 'Fabric', 'Directory', 'Access', 'Local') { $c.Keys | Should -Contain $section }
         $c.Authentication.TenantId | Should -BeNullOrEmpty
         $c.Authentication.ApplicationId | Should -BeNullOrEmpty
@@ -89,7 +90,7 @@ Describe 'Repository' {
     }
 
     It 'has every image linked by the guide and the README' {
-        foreach ($doc in 'docs\PurviewDlpReport-Fabric-Guide.md', 'README.md') {
+        foreach ($doc in 'package\docs\PurviewDlpReport-Fabric-Guide.md', 'README.md') {
             $text = Get-Content (Join-Path $RepoRoot $doc) -Raw
             $links = [regex]::Matches($text, '(?:!\[[^\]]*\]\(|src="|srcset=")([^)"\s?]+\.png)') | ForEach-Object { $_.Groups[1].Value }
             @($links).Count | Should -BeGreaterThan 0 -Because $doc
@@ -101,7 +102,7 @@ Describe 'Repository' {
 
 Describe 'Read-Configuration' {
     It 'refuses the template as it is (no tenant)' {
-        { Read-Configuration (Join-Path $RepoRoot 'config\PurviewDlpReport-Fabric.config.psd1') } | Should -Throw '*TenantId must be a GUID*'
+        { Read-Configuration (Join-Path $PackageRoot 'config\PurviewDlpReport-Fabric.config.psd1') } | Should -Throw '*TenantId must be a GUID*'
     }
     It 'accepts a complete certificate configuration' {
         $c = Read-Configuration (New-TestConfig @{})
@@ -381,7 +382,7 @@ Describe 'Texts of the agents' {
         New-CopilotStudioToolDescription | Should -Match 'row-level security'
     }
     It 'ships the conversation language topic for Copilot Studio' {
-        $yaml = Get-Content (Join-Path $RepoRoot 'src\copilot-studio\conversation-language.yaml') -Raw
+        $yaml = Get-Content (Join-Path $PackageRoot 'src\copilot-studio\conversation-language.yaml') -Raw
         $yaml | Should -Match '(?m)^kind: AdaptiveDialog'
         $yaml | Should -Match 'variable: System\.User\.Language'
         $yaml | Should -Match 'value: English'
