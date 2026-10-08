@@ -2,7 +2,7 @@
 
 Publishes the rows of Purview DLP Report to Microsoft Fabric so each business line, manager or employee sees only the messages that concern them in Power BI and through an agent in Microsoft Teams.
 
-This folder contains everything needed to run the tool: Publish-DlpReportToFabric.ps1, the configuration, the report and agent definitions and the guide. Tests and build tools stay outside it, in the repository.
+This folder contains everything needed to run the tool: Publish-DlpReportToFabric.ps1, the configuration, the report and agent definitions and the guides. Tests and build tools stay outside it, in the repository.
 
 > [!IMPORTANT]
 > Files downloaded from the Internet may be blocked by Windows. Unblock them once, from this folder:
@@ -33,14 +33,15 @@ notepad .\config\PurviewDlpReport-Fabric.config.psd1     # tenant, application, 
 | Item | Role |
 |---|---|
 | `config\` | Example configuration file. |
-| `docs\` | Administrator guide in Markdown and HTML, with images. |
+| `docs\` | User and developer guides in Markdown and HTML, with images. |
 | `src\` | Report, semantic model, data agent and Copilot Studio definitions. |
 | `Publish-DlpReportToFabric.ps1` | Entry script to run. |
 | `LICENSE` | MIT license. |
 | `README.md` | This package quick start. |
 
 ## Documentation
-- [Guide](docs/PurviewDlpReport-Fabric-Guide.md) - also `docs/PurviewDlpReport-Fabric-Guide.html`, a single file to open locally
+- [User guide](docs/PurviewDlpReport-Fabric-UserGuide.md) - also `docs/PurviewDlpReport-Fabric-UserGuide.html`, a single file to open locally
+- [Developer guide](docs/PurviewDlpReport-Fabric-Guide.md) - also `docs/PurviewDlpReport-Fabric-Guide.html`
 
 Project page, releases and change log: https://github.com/Nico77600/PurviewDlpReport-Fabric
 

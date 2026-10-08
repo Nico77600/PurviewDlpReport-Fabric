@@ -1,14 +1,14 @@
 ---
 title: Purview DLP Report for Microsoft Fabric
-subtitle: Administrator guide
+subtitle: Developer guide
 version: 1.3.0
 author: Nicolas Fabert
-updated: 2026-10-02
+updated: 2026-10-08
 ---
 
-# Purview DLP Report for Microsoft Fabric — Administrator guide
+# Purview DLP Report for Microsoft Fabric — Developer guide
 
-> An **optional companion** of Purview DLP Report. It publishes the same rows — **one row per Message ID** — to Microsoft Fabric with the profile of each sender, and gives every business line, manager and employee a Power BI report and an agent in Microsoft Teams that show **only the messages that concern them**.
+> An **optional companion** of Purview DLP Report. It publishes the same rows — **one row per Message ID** — to Microsoft Fabric with the profile of each sender, and gives every business line, manager and employee a Power BI report and an agent in Microsoft Teams that show **only the messages that concern them**. The steps followed every day are in the [user guide](PurviewDlpReport-Fabric-UserGuide.md).
 
 > [!IMPORTANT]
 > Files downloaded from the Internet may be blocked by Windows and fail to run. Before using this project, unblock every file in the downloaded folder:
@@ -615,8 +615,8 @@ Every figure is the one of the report for the same person: the agent applies the
 | `package\src\AiDefinition.ps1` | Preparation of the model for AI, the data agent and its answer format, the texts of the Copilot Studio agent |
 | `package\src\copilot-studio\conversation-language.yaml` | Topic of the Copilot Studio agent that sets the language of the conversation |
 | `tests\` | Offline Pester tests (chapter 13) |
-| `package\docs\` | This guide (Markdown and HTML) and its images |
-| `tools\Build-Documentation.ps1` | Builds the HTML guide |
+| `package\docs\` | The two guides (Markdown and HTML) and their images |
+| `tools\Build-Documentation.ps1` | Builds the HTML guides |
 | `tools\New-DocumentationImages.ps1` | Renders the graphics of the README from this guide |
 | `tools\new_report_backgrounds.py` | Draws the page backgrounds and writes `layout.json` (only to change the design) |
 
