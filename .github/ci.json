@@ -1,0 +1,10 @@
+{
+  "runtimeRoot": "package",
+  "testMode": "pester",
+  "testEntry": null,
+  "tests": [
+    "tests/PurviewDlpReport-Fabric.Tests.ps1"
+  ],
+  "packageBuilder": null,
+  "packageEntry": null
+}
