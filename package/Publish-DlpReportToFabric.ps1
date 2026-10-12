@@ -1,4 +1,5 @@
 #Requires -Version 7.4
+
 <#
 .SYNOPSIS
     Purview DLP Report for Microsoft Fabric - publishes the DLP report to a Fabric warehouse and a Power BI
@@ -55,6 +56,11 @@
     Version : 1.3.0
     Exit codes : 0 = success, 1 = failure, 2 = published, but the source period is incomplete.
     Documentation : docs\PurviewDlpReport-Fabric-Guide.md
+
+    This Script is a Personal project.
+    It's provided "AS-IS". It's not an official Microsoft product so no support can be expected from Microsoft.
+
+    As any scripts you must read carefully the documentation and test it first in a Test environment before any run in Production.
 #>
 [CmdletBinding()]
 param(
